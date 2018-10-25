@@ -11,47 +11,30 @@ import UIKit
 class ThirdViewController: UIViewController {
     
     @IBOutlet weak var lbl: UILabel!
-    var index = 1
-    var end = false
-    
-    var jokes: [String] = ["What do you call artificial bread?", "Non Naan", "haha"]
-    
-    let imageView = UIImageView(image: UIImage(named: "haha"))
+    var jokeList: [String] = ["What do you call artificial bread?", "Non Naan"]
+    var position = 1
+    var endOfJoke = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lbl.text = jokes[0]
+        lbl.text = jokeList[0]
         // Do any additional setup after loading the view.
     }
 
     @IBAction func btn(_ sender: Any) {
         UIView.beginAnimations("View Flip", context: nil)
         UIView.setAnimationDuration(1)
-        if (end) {
+        if (endOfJoke) {
             UIView.setAnimationTransition(.flipFromLeft, for: view, cache: true)
-        }
-        else {
+        } else {
             UIView.setAnimationTransition(.flipFromRight, for: view, cache: true)
         }
         UIView.commitAnimations()
-        
-        if jokes[index] == "haha" {
-            lbl.text = ""
-            imageView.alpha = 1
-            imageView.center = view.center
-            imageView.contentMode = .scaleAspectFit
-            view.addSubview(imageView)
-        }
-        else {
-            imageView.alpha = 0
-            lbl.text = jokes[index]
-        }
-        
-        index += 1
-        
-        if (index == jokes.count) {
-            index = 0
-            end = true
+        lbl.text = jokeList[position]
+        position += 1
+        if (position == jokeList.count) {
+            position = 0
+            endOfJoke = true
         }
     }
     override func didReceiveMemoryWarning() {
